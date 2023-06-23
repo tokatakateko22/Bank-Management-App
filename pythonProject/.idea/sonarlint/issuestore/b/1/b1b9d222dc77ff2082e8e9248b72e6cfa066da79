@@ -1,0 +1,16 @@
+
+rpython:S117"VRename this parameter "loanAmount" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÒßÊÿÿÿÿÿ
+rpython:S117"VRename this parameter "loanNumber" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÒßÊÿÿÿÿÿ
+ppython:S117"TRename this parameter "loanType" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÒßÊÿÿÿÿÿ
+spython:S117	"WRename this parameter "accountType" to match the regular expression ^[_a-z][a-z0-9_]*$.(•Ãœ—ıÿÿÿÿ
+gpython:S100"PRename method "shiftBalance" to match the regular expression ^[a-z_][a-z0-9_]*$.(àã«æ
+epython:S100"NRename method "getBalance" to match the regular expression ^[a-z_][a-z0-9_]*$.(¾Üƒê
+hpython:S100"RRename method "getAccountType" to match the regular expression ^[a-z_][a-z0-9_]*$.(ËßïU
+ppython:S117"TRename this parameter "branchId" to match the regular expression ^[_a-z][a-z0-9_]*$.(ˆÙÑÚúÿÿÿÿ
+rpython:S117"VRename this parameter "customerId" to match the regular expression ^[_a-z][a-z0-9_]*$.(ˆÙÑÚúÿÿÿÿ
+tpython:S117"XRename this parameter "customerName" to match the regular expression ^[_a-z][a-z0-9_]*$.(ˆÙÑÚúÿÿÿÿ
+vpython:S117"ZRename this parameter "customerNumber" to match the regular expression ^[_a-z][a-z0-9_]*$.(ˆÙÑÚúÿÿÿÿ
+bpython:S100!"KRename method "addLoan" to match the regular expression ^[a-z_][a-z0-9_]*$.(ùÁŸ“
+dpython:S100$"NRename method "addAccount" to match the regular expression ^[a-z_][a-z0-9_]*$.(íÊî
+kpython:S100'"ORename method "getAccounts" to match the regular expression ^[a-z_][a-z0-9_]*$.(Ô´¼Çøÿÿÿÿ
+cpython:S100*"LRename method "getLoans" to match the regular expression ^[a-z_][a-z0-9_]*$.(Á¯áí

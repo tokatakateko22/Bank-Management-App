@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dashboard</title>
+        <script type="text/javascript" src="/eel.js"></script>
+        <script type="text/javascript" src="../style.js"></script>
+        <script type="text/javascript" src="../login.js"></script>
+        <script type="text/javascript" src="../main.js"></script>
+        <style>
+            body {
+                background-color: #f3f4f6;
+            }
+        </style>
+    </head>
+    <body class="relative max-h-screen overflow-hidden">
+      <aside class="fixed inset-y-0 left-0 max-h-screen bg-white shadow-md w-60">
+        <div class="flex flex-col justify-between h-full">
+          <div class="flex-grow">
+            <div class="px-4 py-6 text-center border-b">
+              <h1 class="text-2xl font-bold">Bank Management App</h1>
+            </div>
+            <div class="p-4">
+              <ul class="text-lg font-bold">
+                <li><a href="dashboard.html" class="block p-4 transition-all duration-100 bg-gray-300 rounded-t-lg">Overview</a></li>
+                <li><a href="request.html" class="block p-4 transition-all duration-100 bg-gray-100 hover:bg-gray-300">Request Loan</a></li>
+                <li><a href="open.html" class="block p-4 transition-all duration-100 bg-gray-100 hover:bg-gray-300">Open an Account</a></li>
+                <li><a href="send.html" class="block p-4 transition-all duration-100 bg-gray-100 hover:bg-gray-300">Send Money</a></li>
+                <li><a href="account.html" class="block p-4 transition-all duration-100 bg-gray-100 rounded-b-lg hover:bg-gray-300">Account</a></li>
+              </ul>
+            </div>
+          </div>
+            <div>
+                <a onclick="eel.nullify(); check()" class="block w-full p-6 text-xl font-bold text-center text-white transition-all duration-100 bg-gray-800 cursor-pointer hover: hover:bg-gray-700">Logout</a>
+            </div>
+        </div>
+      </aside>
+
+      <main class="max-h-screen pt-16 overflow-auto ml-60">
+        <div class="px-6 py-8 mx-8 space-y-4 bg-white rounded-lg">
+            <h1 class="text-3xl font-bold">Overview</h1>
+            <hr>
+            <h2 class="text-2xl font-bold">Accounts:</h2>
+            <div class="space-y-4" id="accountDetailsContainer">
+            </div>
+            <hr>
+            <h2 class="text-2xl font-bold">Loans:</h2>
+            <div class="space-y-4" id="loanDetailsContainer">
+            </div>
+        </div>
+      </main>
+    <script>
+        function delAcc(id) {
+            eel.deleteAccount(id)(function(ret) {
+                if (ret) {
+                    Swal.fire({
+                        title: 'Account deleted!',
+                        text: 'Account has been deleted successfully!',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "dashboard.html";
+                        }
+                    })
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'An error has occurred while deleting!',
+                        icon: 'error',
+                        confirmButtonText: 'Ok'
+                    })
+                }
+            });
+        }
+        eel.get_customer_account()(function(accounts) {
+            let data = JSON.parse(accounts)
+            let htmlCode = "";
+            for (let i = 0; i < data.length; i++) {
+                let obj = data[i];
+                htmlCode += `
+                <div class="bg-gray-100 py-4 rounded-lg px-6">
+                    <h3 class="text-xl font-bold">${obj.id} : ${obj.bank}</h3>
+                    <div class="flex justify-between">
+                        <div class="my-auto">
+                            <h3 class="text-lg">${obj.type}</h3>
+                            <button type="button" onclick="delAcc(${obj.id})" class="block px-4 py-2 font-bold text-center text-white bg-red-500 rounded focus:outline-none focus:ring-2 focus:ring-red-500">Delete</button>
+                        </div>
+                        <div class="my-auto">
+                            <h3 class="text-4xl text-green font-bold">$${obj.balance}</h3>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }
+
+            let container = document.getElementById("accountDetailsContainer");
+            container.innerHTML = htmlCode;
+        })
+        eel.get_customer_loans()(function(loan){
+            const loans = JSON.parse(loan);
+            const container = document.getElementById("loanDetailsContainer");
+            loans.forEach(loan => {
+            const loanDiv = document.createElement('div');
+            loanDiv.className = 'bg-gray-100 py-4 rounded-lg px-6';
+
+            const loanInfoDiv = document.createElement('div');
+            loanInfoDiv.className = 'flex justify-between';
+
+            const loanDetailsDiv = document.createElement('div');
+            loanDetailsDiv.className = 'my-auto';
+
+            const loanId = document.createElement('h3');
+            loanId.className = 'text-xl font-bold';
+            loanId.textContent = loan.id + ": " + loan.name;
+
+            const loanStatus = document.createElement('h3');
+            loanStatus.className = `text-sm py-1 px-2 text-center rounded-lg text-white ${loan.approved ? 'bg-green-600' : 'bg-red-600'}`;
+            loanStatus.textContent = loan.approved ? 'Approved' : 'Pending';
+
+            loanDetailsDiv.appendChild(loanId);
+            loanDetailsDiv.appendChild(loanStatus);
+
+            const loanAmountDiv = document.createElement('div');
+            loanAmountDiv.className = 'my-auto text-center';
+
+            const loanAmount = document.createElement('h3');
+            loanAmount.className = 'text-4xl text-green font-bold';
+            loanAmount.textContent = '$' + loan.amount.toFixed(2);
+
+            loanAmountDiv.appendChild(loanAmount);
+
+            loanInfoDiv.appendChild(loanDetailsDiv);
+            loanInfoDiv.appendChild(loanAmountDiv);
+
+            loanDiv.appendChild(loanInfoDiv);
+            container.appendChild(loanDiv);
+        });
+        })
+    </script>
+    </body>
+</html>

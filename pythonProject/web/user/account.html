@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dashboard</title>
+        <script type="text/javascript" src="/eel.js"></script>
+        <script type="text/javascript" src="../style.js"></script>
+        <script type="text/javascript" src="../main.js"></script>
+        <script type="text/javascript" src="../login.js"></script>
+        <style>
+            body {
+                background-color: #f3f4f6;
+            }
+        </style>
+    </head>
+    <body class="relative max-h-screen overflow-hidden">
+      <aside class="fixed inset-y-0 left-0 max-h-screen bg-white shadow-md w-60">
+        <div class="flex flex-col justify-between h-full">
+          <div class="flex-grow">
+            <div class="px-4 py-6 text-center border-b">
+              <h1 class="text-2xl font-bold">Bank Management App</h1>
+            </div>
+            <div class="p-4">
+              <ul class="text-lg font-bold">
+                <li><a href="dashboard.html" class="block p-4 transition-all duration-100 bg-gray-100 rounded-t-lg hover:bg-gray-300">Overview</a></li>
+                <li><a href="request.html" class="block p-4 transition-all duration-100 bg-gray-100 hover:bg-gray-300">Request Loan</a></li>
+                <li><a href="open.html" class="block p-4 transition-all duration-100 bg-gray-100 hover:bg-gray-300">Open an Account</a></li>
+                <li><a href="send.html" class="block p-4 transition-all duration-100 bg-gray-100 hover:bg-gray-300">Send Money</a></li>
+                <li><a href="account.html" class="block p-4 transition-all duration-100 bg-gray-300 rounded-b-lg hover:bg-gray-300">Account</a></li>
+              </ul>
+            </div>
+          </div>
+            <div>
+                <a onclick="eel.nullify(); check()" class="block w-full p-6 text-xl font-bold text-center text-white transition-all duration-100 bg-gray-800 cursor-pointer hover: hover:bg-gray-700">Logout</a>
+            </div>
+        </div>
+      </aside>
+
+      <main class="max-h-screen pt-16 overflow-auto ml-60">
+        <div class="px-6 py-8 mx-8 space-y-4 bg-white rounded-lg">
+            <h1 class="text-3xl font-bold">Update Account</h1>
+            <hr>
+            <form class="space-y-4">
+                <div>
+                    <label for="account-id" class="block font-medium text-gray-700">Account ID</label>
+                    <input type="text" id="account-id" name="account-id" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" value="12345" readonly>
+                </div>
+                <div>
+                    <label for="name" class="block font-medium text-gray-700">Name</label>
+                    <input type="text" id="name" name="name" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" value="John Doe" required>
+                </div>
+                <div>
+                    <label for="email" class="block font-medium text-gray-700">Email</label>
+                    <input type="email" id="email" name="email" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" value="johndoe@example.com" required>
+                </div>
+                <div>
+                    <label for="phone" class="block font-medium text-gray-700">Phone No</label>
+                    <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" value="1234567890" required>
+                </div>
+                <div>
+                    <button type="button" onclick="upd()" class="block px-4 py-2 font-bold text-center text-white bg-blue-500 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">Update Account</button>
+                </div>
+            </form>
+        </div>
+      </main>
+    <script>
+        eel.getCustomerInfo()(function (ret) {
+            let customer = JSON.parse(ret);
+            document.getElementById("account-id").value = customer.id;
+            document.getElementById("name").value = customer.name;
+            document.getElementById("email").value = customer.email;
+            document.getElementById("phone").value = customer.phone;
+        })
+        function upd() {
+            eel.updateCustomer(document.getElementById("name").value, document.getElementById("email").value, document.getElementById("phone").value)(function (ret) {
+                if (ret) {
+                    Swal.fire({
+                        title: 'Account updated!',
+                        text: 'Your account has been updated successfully!',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "dashboard.html";
+                        }
+                    })
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'An error has occurred while updating your account!',
+                        icon: 'error',
+                        confirmButtonText: 'Ok'
+                    })
+                }
+            }
+            )
+        }
+    </script>
+    </body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dashboard</title>
+        <script type="text/javascript" src="/eel.js"></script>
+        <script type="text/javascript" src="../style.js"></script>
+        <script type="text/javascript" src="../login.js"></script>
+        <script type="text/javascript" src="../main.js"></script>
+        <style>
+            body {
+                background-color: #f3f4f6;
+            }
+        </style>
+    </head>
+    <body class="relative max-h-screen overflow-hidden">
+      <aside class="fixed inset-y-0 left-0 max-h-screen bg-white shadow-md w-60">
+        <div class="flex flex-col justify-between h-full">
+          <div class="flex-grow">
+            <div class="px-4 py-6 text-center border-b">
+              <h1 class="text-2xl font-bold">Bank Management App</h1>
+            </div>
+            <div class="p-4">
+              <ul class="text-lg font-bold">
+                <li><a href="dashboard.html" class="block p-4 transition-all duration-100 bg-gray-100 rounded-t-lg hover:bg-gray-300">Overview</a></li>
+                <li><a href="bank.html" class="block p-4 transition-all duration-100 bg-gray-100 hover:bg-gray-300">Banks</a></li>
+                <li><a href="branch.html" class="block p-4 transition-all duration-100 bg-gray-100 hover:bg-gray-300">Branches</a></li>
+                <li><a href="customer.html" class="block p-4 transition-all duration-100 bg-gray-100 hover:bg-gray-300">Customers</a></li>
+                <li><a href="loan.html" class="block p-4 transition-all duration-100 bg-gray-100 hover:bg-gray-300">Loans</a></li>
+                <li><a href="employee.html" class="block p-4 transition-all duration-100 bg-gray-300 rounded-b-lg hover:bg-gray-300">Employees</a></li>
+              </ul>
+            </div>
+          </div>
+            <div>
+                <a onclick="eel.nullify(); check()" class="block w-full p-6 text-xl font-bold text-center text-white transition-all duration-100 bg-gray-800 cursor-pointer hover: hover:bg-gray-700">Logout</a>
+            </div>
+        </div>
+      </aside>
+
+      <main class="max-h-screen pt-16 overflow-auto ml-60">
+        <div class="px-6 py-8 mx-8 space-y-4 bg-white rounded-lg">
+            <h1 class="text-3xl font-bold">Overview</h1>
+            <hr>
+            <div class="px-6 py-4 bg-gray-100 rounded-lg">
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th class="font-bold text-left">Employee Name</th>
+                            <th class="font-bold text-left">Admin</th>
+                            <th class="font-bold text-left">Email</th>
+                            <th class="font-bold text-left">ID</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table">
+                        <tr>
+                            <td class="py-2 border-b">John Doe</td>
+                            <td class="py-2 border-b">Yes</td>
+                            <td class="py-2 border-b">johndoe@example.com</td>
+                            <td class="py-2 border-b">20217004</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 border-b">Jane Smith</td>
+                            <td class="py-2 border-b">No</td>
+                            <td class="py-2 border-b">janesmith@example.com</td>
+                            <td class="py-2 border-b">20217012</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h1 class="text-3xl font-bold">Add Employee</h1>
+            <hr>
+            <form class="space-y-4">
+                <div>
+                    <label for="bank-id" class="block font-medium text-gray-700">Bank ID</label>
+                    <select id="bank-id" name="bank-id" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                        <option value="" selected disabled>Select Bank ID</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="employee-name" class="block font-medium text-gray-700">Employee Name</label>
+                    <input type="text" id="employee-name" name="employee-name" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label for="admin" class="block font-medium text-gray-700">Admin</label>
+                    <select id="admin" name="admin" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                        <option value="" selected disabled>Select Role</option>
+                        <option value="true">Admin</option>
+                        <option value="false">Non-Admin</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="email" class="block font-medium text-gray-700">Email</label>
+                    <input type="email" id="email" name="email" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label for="password" class="block font-medium text-gray-700">Password</label>
+                    <input type="password" id="password" name="password" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <button type="button" onclick="clicker()" class="block px-4 py-2 font-bold text-center text-white bg-blue-500 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">Add Employee</button>
+                </div>
+            </form>
+        </div>
+      </main>
+    <script>
+        eel.getBanks()(function(banks) {
+            let data = JSON.parse(banks)
+            let htmlCode = "";
+            for (let i = 0; i < data.length; i++) {
+                let obj = data[i];
+                htmlCode += `
+                    <option value="${obj.id}">${obj.name}</option>
+                `;
+            }
+
+            let container = document.getElementById("bank-id");
+            container.innerHTML = htmlCode;
+        })
+            eel.getEmployees()(function (loans) {
+            let data = JSON.parse(loans)
+            // data include id, bankName, amount, customername, customerid, add it to the table in TR
+            let container = document.getElementById("table")
+            let html = ""
+            for(let i = 0; i < data.length; i++) {
+                let obj = data[i]
+                html += `
+                    <tr>
+                        <td class="py-2">${obj.name}</td>
+                        <td class="py-2">${obj.isAdmin ? "Yes" : "No"}</td>
+                        <td class="py-2">${obj.email}</td>
+                        <td class="py-2">${obj.id}</td>
+                    </tr>
+                `
+            }
+            container.innerHTML = html
+        })
+        function clicker() {
+            eel.addEmployee(document.getElementById("employee-name").value, document.getElementById("email").value, document.getElementById("password").value, document.getElementById("admin").value, document.getElementById("bank-id").selectedOptions[0].value)(function (res) {
+                if (res) {
+                    Swal.fire({
+                        title: 'Employee added!',
+                        text: 'The employee has been added successfully!',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "dashboard.html";
+                        }
+                    })
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'An error has occurred while adding the employee',
+                        icon: 'error',
+                        confirmButtonText: 'Ok'
+                    })
+                }
+            })
+        }
+    </script>
+    </body>
+</html>

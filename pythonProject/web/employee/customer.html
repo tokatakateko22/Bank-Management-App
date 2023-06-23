@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dashboard</title>
+        <script type="text/javascript" src="/eel.js"></script>
+        <script type="text/javascript" src="../style.js"></script>
+        <script type="text/javascript" src="../login.js"></script>
+        <script type="text/javascript" src="../main.js"></script>
+        <style>
+            body {
+                background-color: #f3f4f6;
+            }
+        </style>
+    </head>
+    <body class="relative max-h-screen overflow-hidden">
+      <aside class="fixed inset-y-0 left-0 max-h-screen bg-white shadow-md w-60">
+        <div class="flex flex-col justify-between h-full">
+          <div class="flex-grow">
+            <div class="px-4 py-6 text-center border-b">
+              <h1 class="text-2xl font-bold">Bank Management App</h1>
+            </div>
+            <div class="p-4">
+              <ul class="text-lg font-bold">
+                <li><a href="dashboard.html" class="block p-4 transition-all duration-100 bg-gray-100 rounded-t-lg hover:bg-gray-300">Overview</a></li>
+                <li><a href="bank.html" class="block p-4 transition-all duration-100 bg-gray-100 hover:bg-gray-300">Banks</a></li>
+                <li><a href="branch.html" class="block p-4 transition-all duration-100 bg-gray-100 hover:bg-gray-300">Branches</a></li>
+                <li><a href="customer.html" class="block p-4 transition-all duration-100 bg-gray-300 hover:bg-gray-300">Customers</a></li>
+                <li><a href="loan.html" class="block p-4 transition-all duration-100 bg-gray-100 hover:bg-gray-300">Loans</a></li>
+                <li><a href="employee.html" class="block p-4 transition-all duration-100 bg-gray-100 rounded-b-lg hover:bg-gray-300">Employees</a></li>
+              </ul>
+            </div>
+          </div>
+            <div>
+                <a onclick="eel.nullify(); check()" class="block w-full p-6 text-xl font-bold text-center text-white transition-all duration-100 bg-gray-800 cursor-pointer hover: hover:bg-gray-700">Logout</a>
+            </div>
+        </div>
+      </aside>
+
+      <main class="max-h-screen pt-16 overflow-auto ml-60">
+        <div class="px-6 py-8 mx-8 space-y-4 bg-white rounded-lg">
+            <h1 class="text-3xl font-bold">Overview</h1>
+            <hr>
+            <div class="px-6 py-4 bg-gray-100 rounded-lg">
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th class="font-bold text-left">Customer ID</th>
+                            <th class="font-bold text-left">Customer Name</th>
+                            <th class="font-bold text-left">Phone Number</th>
+                            <th class="font-bold text-left">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table">
+
+                        <!-- Add more rows for additional customers -->
+                    </tbody>
+                </table>
+            </div>
+            <h1 class="text-3xl font-bold">Add Customer</h1>
+            <hr>
+            <form class="space-y-4">
+                <div>
+                    <label for="customer-name" class="block font-medium text-gray-700">Customer Name</label>
+                    <input type="text" id="customer-name" name="customer-name" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label for="phone" class="block font-medium text-gray-700">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label for="email" class="block font-medium text-gray-700">Email</label>
+                    <input type="email" id="email" name="email" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label for="password" class="block font-medium text-gray-700">Password</label>
+                    <input type="password" id="password" name="password" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <button type="button" onclick="register()" class="block px-4 py-2 font-bold text-center text-white bg-blue-500 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">Add Customer</button>
+                </div>
+            </form>
+        </div>
+      </main>
+             <script>
+            function register() {
+                const name = document.getElementById('customer-name').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const phone = document.getElementById('phone').value;
+                eel.add_customer(name, email, password, phone)(function (response) {
+                    if (response) {
+                        Swal.fire({
+                            title: 'Customer added!',
+                            text: 'Customer has been added successfully!',
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        })
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'An error has occurred while sending!',
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
+                        })
+                    }
+                });
+            }
+
+            eel.getCustomers() (function (customers){
+                let data = JSON.parse(customers)
+                let html = ''
+                let table = document.getElementById('table')
+                for(let i = 0; i < data.length; i++){
+                    html += `
+                    <tr>
+                            <td class="py-2 border-b">${data[i].id}</td>
+                            <td class="py-2 border-b">${data[i].name}</td>
+                            <td class="py-2 border-b">${data[i].phone}</td>
+                            <td class="py-2 border-b">${data[i].email}</td>
+                    </tr>
+                    `
+                }
+                table.innerHTML = html
+            })
+        </script>
+    </body>
+</html>

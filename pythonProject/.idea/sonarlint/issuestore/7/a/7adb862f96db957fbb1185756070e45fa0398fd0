@@ -1,0 +1,23 @@
+
+mpython:S100"ORename method "getPassword" to match the regular expression ^[a-z_][a-z0-9_]*$.(Ñ¥´Ú8ĞÍıÆ„1
+upython:S100"WRename method "getEmployeePassword" to match the regular expression ^[a-z_][a-z0-9_]*$.(¼¶éœ8ĞÍıÆ„1
+|python:S117"YRename this parameter "customerEmail" to match the regular expression ^[_a-z][a-z0-9_]*$.(İÆıŞùÿÿÿÿ8ĞÍıÆ„1
+ypython:S117"VRename this parameter "customerId" to match the regular expression ^[_a-z][a-z0-9_]*$.(İÆıŞùÿÿÿÿ8ĞÍıÆ„1
+{python:S117"XRename this parameter "customerName" to match the regular expression ^[_a-z][a-z0-9_]*$.(İÆıŞùÿÿÿÿ8ĞÍıÆ„1
+python:S117"\Rename this parameter "customerPassword" to match the regular expression ^[_a-z][a-z0-9_]*$.(İÆıŞùÿÿÿÿ8ĞÍıÆ„1
+upython:S100"RRename method "insertCustomer" to match the regular expression ^[a-z_][a-z0-9_]*$.(İÆıŞùÿÿÿÿ8ĞÍıÆ„1
+Kpython:S1481"'Remove the unused local variable "row".(ÌÇ÷Ûùÿÿÿÿ8ĞÍıÆ„1
+|python:S117#"YRename this parameter "employeeEmail" to match the regular expression ^[_a-z][a-z0-9_]*$.(™ƒ‚ıÿÿÿÿ8ĞÍıÆ„1
+ypython:S117#"VRename this parameter "employeeID" to match the regular expression ^[_a-z][a-z0-9_]*$.(™ƒ‚ıÿÿÿÿ8ĞÍıÆ„1
+{python:S117#"XRename this parameter "employeeName" to match the regular expression ^[_a-z][a-z0-9_]*$.(™ƒ‚ıÿÿÿÿ8ĞÍıÆ„1
+python:S117#"\Rename this parameter "employeePassword" to match the regular expression ^[_a-z][a-z0-9_]*$.(™ƒ‚ıÿÿÿÿ8ĞÍıÆ„1
+vpython:S117#"SRename this parameter "isAdmin" to match the regular expression ^[_a-z][a-z0-9_]*$.(™ƒ‚ıÿÿÿÿ8ĞÍıÆ„1
+upython:S100#"RRename method "insertEmployee" to match the regular expression ^[a-z_][a-z0-9_]*$.(™ƒ‚ıÿÿÿÿ8ĞÍıÆ„1
+Epython:S1481&"'Remove the unused local variable "row".(ÄÁï{8ÑÍıÆ„1
+Npython:S1172)"/Remove the unused function parameter "account".(’îÂõ8ÑÍıÆ„1
+tpython:S100)"VRename method "getCustomerAccount" to match the regular expression ^[a-z_][a-z0-9_]*$.(’îÂõ8ÑÍıÆ„1
+Kpython:S1481+"'Remove the unused local variable "row".(ÉÒë¬ûÿÿÿÿ8ÑÍıÆ„1
+tpython:S117/"VRename this parameter "customerID" to match the regular expression ^[_a-z][a-z0-9_]*$.(‘«ÈÜ8ÑÍıÆ„1
+rpython:S100/"TRename method "getCustomerLoans" to match the regular expression ^[a-z_][a-z0-9_]*$.(‘«ÈÜ8ÑÍıÆ„1
+qpython:S1005"NRename method "updateLoan" to match the regular expression ^[a-z_][a-z0-9_]*$.(Ş×°ìøÿÿÿÿ8ÑÍıÆ„1
+Kpython:S14817"'Remove the unused local variable "row".(’ÀÉÃùÿÿÿÿ8Ó½ÿÆ„1

@@ -1,0 +1,19 @@
+1. Install the included ODBC drivers (Version 18 is required)
+2. Run the app right away, the app uses an Azure database so no installation is required
+3. Chrome or Edge should be installed
+
+The Connection doesn’t commit the changes by intention, the DB “resets” when the program restarts.
+
+For running the code:
+
+Python 3.11 is needed with the packages:
+- matplotlib
+- eel
+- pyodbc
+- pyinstaller (for conversion to .exe)
+
+Simply run main.py
+
+For compiling the exe file run the following command in the code directory (with the package pyinstaller installed):
+python3.11 -m eel main.py web --onefile
+The exe will be in the dist folder
